@@ -39,7 +39,7 @@ export default function ProjectComparison({ projects, onClose }: ProjectComparis
     <div className="fixed inset-0 z-50 bg-black/30 backdrop-blur-sm flex items-center justify-center p-4">
       <div className="w-full max-w-6xl card bg-white max-h-[90vh] overflow-auto">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="font-display text-xl font-semibold text-forest-900">Project Comparison</h2>
+          <h2 className="font-display text-xl font-semibold text-[#0F172A] dark:text-[#E2E8F0]">Project Comparison</h2>
           <div className="flex items-center gap-2">
             <button onClick={handleCopyLink} className="btn-secondary text-xs py-1.5 px-3">
               {copyState === "copied" ? "Copied URL" : "Share URL"}
@@ -49,17 +49,17 @@ export default function ProjectComparison({ projects, onClose }: ProjectComparis
         </div>
 
         <div className="grid gap-4" style={{ gridTemplateColumns: `150px repeat(${projects.length}, minmax(180px, 1fr))` }}>
-          <div className="font-body text-xs uppercase tracking-widest text-[#8aaa8a] dark:text-forest-300">Metric</div>
+          <div className="font-body text-xs uppercase tracking-widest text-[#64748B] dark:text-[#94A3B8]">Metric</div>
           {projects.map((project) => (
-            <div key={`${project.id}-header`} className="p-3 rounded-lg bg-forest-50 border border-forest-200">
-              <p className="font-display text-sm font-semibold text-forest-900">{project.name}</p>
-              <p className="text-xs text-[#5a7a5a] dark:text-[#8aaa8a] mt-1 font-body">{project.category}</p>
+            <div key={`${project.id}-header`} className="p-3 rounded-lg bg-[rgba(99,102,241,0.04)] dark:bg-[rgba(129,140,248,0.06)] border border-[rgba(99,102,241,0.10)] dark:border-[rgba(129,140,248,0.12)]">
+              <p className="font-display text-sm font-semibold text-[#0F172A] dark:text-[#E2E8F0]">{project.name}</p>
+              <p className="text-xs text-[#475569] dark:text-[#94A3B8] mt-1 font-body">{project.category}</p>
             </div>
           ))}
 
           {ROWS.map((row) => (
             <Fragment key={row.key}>
-              <div className="font-body text-sm text-[#5a7a5a] dark:text-[#8aaa8a] py-2 border-t border-forest-100">
+              <div className="font-body text-sm text-[#475569] dark:text-[#94A3B8] py-2 border-t border-[rgba(99,102,241,0.08)] dark:border-[rgba(129,140,248,0.10)]">
                 {row.label}
               </div>
               {projects.map((project) => {
@@ -77,10 +77,10 @@ export default function ProjectComparison({ projects, onClose }: ProjectComparis
                 if (row.key === "verified") value = project.verified ? "Yes" : "No";
 
                 return (
-                  <div key={`${project.id}-${row.key}`} className="py-2 border-t border-forest-100">
-                    <p className="font-body text-sm text-forest-900">{value}</p>
+                  <div key={`${project.id}-${row.key}`} className="py-2 border-t border-[rgba(99,102,241,0.08)] dark:border-[rgba(129,140,248,0.10)]">
+                    <p className="font-body text-sm text-[#0F172A] dark:text-[#E2E8F0]">{value}</p>
                     {row.key === "raised" && (
-                      <p className="font-body text-xs text-[#8aaa8a] dark:text-forest-300 mt-1">{formatCO2(project.co2OffsetKg)} offset</p>
+                      <p className="font-body text-xs text-[#64748B] dark:text-[#94A3B8] mt-1">{formatCO2(project.co2OffsetKg)} offset</p>
                     )}
                   </div>
                 );
@@ -88,9 +88,9 @@ export default function ProjectComparison({ projects, onClose }: ProjectComparis
             </Fragment>
           ))}
 
-          <div className="pt-3 border-t border-forest-100" />
+          <div className="pt-3 border-t border-[rgba(99,102,241,0.08)] dark:border-[rgba(129,140,248,0.10)]" />
           {projects.map((project) => (
-            <div key={`${project.id}-actions`} className="pt-3 border-t border-forest-100">
+            <div key={`${project.id}-actions`} className="pt-3 border-t border-[rgba(99,102,241,0.08)] dark:border-[rgba(129,140,248,0.10)]">
               <Link
                 href={`/projects/${project.id}`}
                 className="btn-primary text-sm py-2 px-4 inline-flex items-center justify-center w-full"

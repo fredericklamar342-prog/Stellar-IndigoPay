@@ -35,7 +35,7 @@ const DEFAULT_ICON = L.divIcon({
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 36" width="24" height="36" aria-hidden="true">
       <path
         d="M12 0C5.373 0 0 5.373 0 12c0 8.5 12 24 12 24S24 20.5 24 12C24 5.373 18.627 0 12 0z"
-        fill="#227239"
+        fill="#4F46E5"
         stroke="#ffffff"
         stroke-width="1.5"
       />

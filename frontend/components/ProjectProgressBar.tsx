@@ -21,22 +21,22 @@ export default function ProjectProgressBar({
   return (
     <div className={className}>
       <div className="mb-2 flex items-center justify-between gap-3">
-        <span className="text-sm font-semibold text-forest-700 dark:text-forest-100">
+        <span className="text-sm font-semibold text-[#4F46E5] dark:text-[#818CF8]">
           {hasGoal ? `${percentage}%` : "No goal set"}
         </span>
         {hasGoal ? (
-          <span className="text-xs text-[#5a7a5a] dark:text-[#a8c2a8]">
+          <span className="text-xs text-[#475569] dark:text-[#94A3B8]">
             {parsedRaised.toLocaleString()} / {parsedGoal.toLocaleString()} XLM
           </span>
         ) : (
-          <span className="text-xs text-[#8aaa8a] dark:text-[#a8c2a8]">
+          <span className="text-xs text-[#64748B] dark:text-[#94A3B8]">
             Raised: {parsedRaised.toLocaleString()} XLM
           </span>
         )}
       </div>
 
       <div
-        className="h-2.5 w-full overflow-hidden rounded-full bg-gray-200 dark:bg-gray-700"
+        className="h-2.5 w-full overflow-hidden rounded-full bg-[rgba(99,102,241,0.08)] dark:bg-[rgba(129,140,248,0.10)]"
         role="progressbar"
         aria-valuemin={0}
         aria-valuemax={100}
@@ -44,7 +44,7 @@ export default function ProjectProgressBar({
         aria-valuetext={hasGoal ? `${percentage}% complete` : "No goal set"}
       >
         <div
-          className="h-full rounded-full bg-emerald-500 transition-all duration-300 dark:bg-emerald-400"
+          className="h-full rounded-full bg-gradient-to-r from-[#4F46E5] to-[#7C3AED] transition-all duration-500"
           style={{ width: `${hasGoal ? percentage : 0}%` }}
         />
       </div>

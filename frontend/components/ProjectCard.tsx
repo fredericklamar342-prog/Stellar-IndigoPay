@@ -23,31 +23,31 @@ export default function ProjectCard({ project }: { project: ClimateProject }) {
           {/* Category icon + badges */}
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
-              <div className="w-10 h-10 rounded-xl bg-forest-100 flex items-center justify-center text-xl border border-forest-200">
+              <div className="w-10 h-10 rounded-xl bg-[rgba(99,102,241,0.08)] dark:bg-[rgba(129,140,248,0.10)] flex items-center justify-center text-xl border border-[rgba(99,102,241,0.12)] dark:border-[rgba(129,140,248,0.15)]">
                 {CATEGORY_ICONS[project.category] || "🌿"}
               </div>
               <div>
-                <p className="text-xs text-[#5a7a5a] dark:text-[#8aaa8a] font-body">
+                <p className="text-xs text-[#475569] dark:text-[#94A3B8] font-body">
                   {project.category}
                 </p>
-                <p className="text-xs text-[#8aaa8a] dark:text-forest-300 font-body">
+                <p className="text-xs text-[#64748B] dark:text-[#64748B] font-body">
                   {project.location}
                 </p>
               </div>
             </div>
             <div className="flex items-center gap-1.5">
               {isComplete ? (
-                <span className="badge text-xs px-3 py-1 rounded-full bg-gradient-to-r from-green-500 to-emerald-600 text-white border-2 border-white shadow-md font-body font-bold">
+                <span className="badge text-xs px-3 py-1 rounded-full bg-gradient-to-r from-emerald-500 to-emerald-600 text-white border-2 border-white shadow-md font-body font-bold">
                   ✅ Fully Funded
                 </span>
               ) : (
                 <>
                   {project.onChainVerified ? (
-                    <span className="badge-verified text-[10px] px-2 py-0.5 rounded-full bg-forest-100 text-forest-700 border border-forest-300 font-body font-bold shadow-sm">
+                    <span className="badge-indigo text-[10px] px-2 py-0.5 font-body font-bold shadow-sm">
                       On-chain verified ✓
                     </span>
                   ) : project.verified ? (
-                    <span className="badge-verified text-xs px-2 py-0.5 rounded-full bg-green-50 text-green-700 border border-green-200 font-body">
+                    <span className="badge-verified text-xs px-2 py-0.5 font-body">
                       ✓ Verified
                     </span>
                   ) : null}
@@ -60,10 +60,10 @@ export default function ProjectCard({ project }: { project: ClimateProject }) {
           </div>
 
           {/* Name & description */}
-          <h3 className="font-display font-semibold text-forest-900 text-base leading-snug mb-2 group-hover:text-forest-600 transition-colors line-clamp-2">
+          <h3 className="font-display font-semibold text-[#0F172A] dark:text-[#E2E8F0] text-base leading-snug mb-2 group-hover:text-[#4F46E5] dark:group-hover:text-[#818CF8] transition-colors line-clamp-2">
             {project.name}
           </h3>
-          <p className="text-[#5a7a5a] dark:text-[#8aaa8a] text-sm leading-relaxed line-clamp-3 mb-4 flex-1 font-body">
+          <p className="text-[#475569] dark:text-[#94A3B8] text-sm leading-relaxed line-clamp-3 mb-4 flex-1 font-body">
             {project.description}
           </p>
 
@@ -93,15 +93,15 @@ export default function ProjectCard({ project }: { project: ClimateProject }) {
           </div>
 
           {/* Stats row */}
-          <div className="flex items-center justify-between pt-3 border-t border-[rgba(34,114,57,0.07)]">
-            <div className="flex items-center gap-3 text-xs text-[#5a7a5a] font-body">
+          <div className="flex items-center justify-between pt-3 border-t border-[rgba(99,102,241,0.07)] dark:border-[rgba(129,140,248,0.07)]">
+            <div className="flex items-center gap-3 text-xs text-[#475569] dark:text-[#94A3B8] font-body">
               <span>👥 {project.donorCount} donors</span>
               <span className="flex items-center gap-1">
                 ♻️ {formatCO2(project.co2OffsetKg)}
                 <span className="tooltip">
                   <button
                     type="button"
-                    className="w-3.5 h-3.5 flex items-center justify-center rounded-full bg-forest-100 text-[8px] text-forest-600 border border-forest-200 hover:bg-forest-200 transition-colors focus:outline-none focus:ring-1 focus:ring-forest-400"
+                    className="w-3.5 h-3.5 flex items-center justify-center rounded-full bg-[rgba(99,102,241,0.08)] text-[8px] text-[#4F46E5] dark:text-[#818CF8] border border-[rgba(99,102,241,0.15)] hover:bg-[rgba(99,102,241,0.15)] transition-colors focus:outline-none focus:ring-1 focus:ring-[#4F46E5]"
                     aria-label="CO2 offset estimate methodology info"
                     onClick={(e) => {
                       e.stopPropagation();
@@ -117,7 +117,7 @@ export default function ProjectCard({ project }: { project: ClimateProject }) {
                 </span>
               </span>
             </div>
-            <span className="text-xs font-semibold text-forest-600 font-body group-hover:text-forest-700">
+            <span className="text-xs font-semibold text-[#4F46E5] dark:text-[#818CF8] font-body group-hover:text-[#6366F1]">
               Donate →
             </span>
           </div>

@@ -46,10 +46,10 @@ export default function ProjectMapMarker({ project, position }: ProjectMapMarker
               {icon}
             </span>
             <div className="min-w-0">
-              <p className="font-display font-semibold text-forest-900 text-sm leading-snug line-clamp-2">
+              <p className="font-display font-semibold text-[#0F172A] text-sm leading-snug line-clamp-2">
                 {project.name}
               </p>
-              <p className="text-xs text-forest-500 font-body mt-0.5 truncate">
+              <p className="text-xs text-[#4F46E5] font-body mt-0.5 truncate">
                 {project.category} · {project.location}
               </p>
             </div>
@@ -58,7 +58,7 @@ export default function ProjectMapMarker({ project, position }: ProjectMapMarker
           {/* Progress bar */}
           <div className="space-y-1">
             <div
-              className="h-1.5 w-full rounded-full bg-forest-100 overflow-hidden"
+              className="h-1.5 w-full rounded-full bg-[rgba(99,102,241,0.10)] overflow-hidden"
               role="progressbar"
               aria-valuenow={pct}
               aria-valuemin={0}
@@ -66,20 +66,21 @@ export default function ProjectMapMarker({ project, position }: ProjectMapMarker
               aria-label={`${pct.toFixed(0)}% funded`}
             >
               <div
-                className="h-full rounded-full bg-forest-500 transition-all duration-500"
+                className="h-full rounded-full bg-gradient-to-r from-[#4F46E5] to-[#7C3AED] transition-all duration-500"
                 style={{ width: `${pct}%` }}
               />
             </div>
-            <div className="flex items-center justify-between text-[11px] text-forest-600 font-body">
+            <div className="flex items-center justify-between text-[11px] text-[#4F46E5] font-body">
               <span className="font-semibold">{formatXLM(project.raisedXLM, 0)} raised</span>
-              <span className="text-forest-400">{pct.toFixed(0)}%</span>
+              <span className="text-[#64748B]">{pct.toFixed(0)}%</span>
             </div>
           </div>
 
           {/* Donate link */}
           <Link
             href={`/donate?project=${project.id}`}
-            className="mt-1 block w-full text-center text-xs font-body font-semibold text-white bg-forest-500 hover:bg-forest-600 active:bg-forest-700 rounded-lg py-1.5 px-3 transition-colors focus:outline-none focus:ring-2 focus:ring-forest-400 focus:ring-offset-1"
+            className="mt-1 block w-full text-center text-xs font-body font-semibold text-white rounded-lg py-1.5 px-3 transition-all focus:outline-none focus:ring-2 focus:ring-[#818CF8] focus:ring-offset-1 hover:opacity-90 active:opacity-80"
+            style={{background: "linear-gradient(135deg, #4F46E5, #7C3AED)"}}
           >
             Donate →
           </Link>

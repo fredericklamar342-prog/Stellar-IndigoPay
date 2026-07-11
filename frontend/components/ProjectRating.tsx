@@ -42,11 +42,11 @@ export default function ProjectRating({ projectId, projectName, donorAddress, on
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm animate-fade-in">
-      <div className="card w-full max-w-md shadow-2xl animate-slide-up border border-forest-100">
+      <div className="card w-full max-w-md shadow-2xl animate-slide-up border border-[rgba(99,102,241,0.10)] dark:border-[rgba(129,140,248,0.12)]">
         <div className="text-center mb-6">
-          <div className="w-16 h-16 bg-forest-100 rounded-full flex items-center justify-center text-3xl mx-auto mb-4">⭐</div>
-          <h2 className="font-display text-2xl font-bold text-forest-900">How was {projectName}?</h2>
-          <p className="text-sm text-[#5a7a5a] dark:text-[#8aaa8a] font-body mt-1">Your feedback helps others choose impactful projects.</p>
+          <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-[#4F46E5] to-[#7C3AED] flex items-center justify-center text-3xl mx-auto mb-4 shadow-lg">⭐</div>
+          <h2 className="font-display text-2xl font-bold text-[#0F172A] dark:text-[#E2E8F0]">How was {projectName}?</h2>
+          <p className="text-sm text-[#475569] dark:text-[#94A3B8] font-body mt-1">Your feedback helps others choose impactful projects.</p>
         </div>
 
         <div className="flex justify-center gap-2 mb-6">
@@ -64,7 +64,7 @@ export default function ProjectRating({ projectId, projectName, donorAddress, on
         </div>
 
         <div className="mb-6">
-          <label className="block text-xs font-bold text-forest-800 uppercase tracking-wider mb-2 opacity-60">
+          <label className="block text-xs font-bold text-[#475569] dark:text-[#94A3B8] uppercase tracking-wider mb-2 opacity-60">
             Optional Review
           </label>
           <textarea
@@ -86,7 +86,7 @@ export default function ProjectRating({ projectId, projectName, donorAddress, on
           <button
             onClick={onCancel}
             disabled={submitting}
-            className="flex-1 px-5 py-3 rounded-xl text-sm font-semibold border border-forest-200 bg-white hover:bg-forest-50 transition-all text-[#5a7a5a] dark:text-[#8aaa8a]"
+            className="flex-1 px-5 py-3 rounded-xl text-sm font-semibold border border-[rgba(99,102,241,0.15)] dark:border-[rgba(129,140,248,0.20)] bg-white dark:bg-[#14142D] hover:bg-[rgba(99,102,241,0.04)] dark:hover:bg-[rgba(129,140,248,0.06)] transition-all text-[#475569] dark:text-[#94A3B8]"
           >
             Skip for now
           </button>
