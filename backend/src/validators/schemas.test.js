@@ -6,7 +6,6 @@ const {
   uuid,
   xlmAmount,
   donationSchema,
-  verificationSchema,
   leaderboardQuerySchema,
 } = require("./schemas");
 

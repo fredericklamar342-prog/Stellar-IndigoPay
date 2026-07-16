@@ -395,16 +395,16 @@ router.get(
   async (req, res, next) => {
     try {
       const result = await pool.query(
-      `SELECT * FROM donations
+        `SELECT * FROM donations
        WHERE donor_address = $1
        ORDER BY created_at DESC`,
-      [req.params.publicKey],
-    );
-    res.json({ success: true, data: result.rows.map(mapDonationRow) });
-  } catch (e) {
-    next(e);
-  }
-});
+        [req.params.publicKey],
+      );
+      res.json({ success: true, data: result.rows.map(mapDonationRow) });
+    } catch (e) {
+      next(e);
+    }
+  });
 
 // GET /api/donations/:id - single donation fetch endpoint
 router.get("/:id", async (req, res, next) => {
@@ -440,25 +440,12 @@ router.get("/:id", async (req, res, next) => {
       LEFT JOIN profiles pr ON d.donor_address = pr.public_key
       WHERE d.id = $1
     `;
-    const result = await pool.query(query, [id]);
+      const result = await pool.query(query, [id]);
 
     if (!result.rows[0]) {
       throw new AppError("DONATION_NOT_FOUND");
     }
-
-    const row = result.rows[0];
-    const donationData = mapDonationRow(row);
-    donationData.projectName = row.project_name;
-    donationData.donorDisplayName = row.donor_display_name || null;
-    donationData.co2OffsetKg = Math.round(
-      Number.parseFloat(row.co2_offset_kg || "0"),
-    );
-
-    res.json({ success: true, data: donationData });
-  } catch (e) {
-    next(e);
-  }
-});
+  });
 
 module.exports = router;
 module.exports.recordDonation = recordDonation;

@@ -1187,28 +1187,7 @@ router.post("/:id/generate-summary", async (req, res, next) => {
         detail: "Only the project owner can generate a summary",
       });
     }
-
-    await enqueueAISummary(req.params.id, {
-      name: project.name,
-      category: project.category,
-      description: project.description,
-      adminAddress,
-    });
-
-    logAdminAction({
-      actor: adminAddress,
-      action: "project.summary.enqueued",
-      targetType: "project",
-      targetId: req.params.id,
-      metadata: {},
-      ipAddress: req.ip,
-    });
-
-    res.status(202).json({ success: true, data: { status: "queued" } });
-  } catch (e) {
-    next(e);
-  }
-});
+  });
 
 /**
  * Create a new donation-matching offer for a project.
@@ -1433,16 +1412,16 @@ router.get("/:id/impact-certificate", async (req, res, next) => {
     }
     const project = projectResult.rows[0];
 
-    // Look up donor profile for display name
-    const profileResult = await pool.query(
-      "SELECT display_name FROM profiles WHERE public_key = $1",
-      [donorAddress],
-    );
-    const donorName = profileResult.rows[0]?.display_name || null;
+      // Look up donor profile for display name
+      const profileResult = await pool.query(
+        "SELECT display_name FROM profiles WHERE public_key = $1",
+        [donorAddress],
+      );
+      const donorName = profileResult.rows[0]?.display_name || null;
 
-    // Look up donations by this donor for this project
-    const donationsResult = await pool.query(
-      `SELECT * FROM donations
+      // Look up donations by this donor for this project
+      const donationsResult = await pool.query(
+        `SELECT * FROM donations
        WHERE project_id = $1 AND donor_address = $2
        ORDER BY created_at DESC`,
       [req.params.id, donorAddress],
@@ -1453,66 +1432,66 @@ router.get("/:id/impact-certificate", async (req, res, next) => {
       });
     }
 
-    const donations = donationsResult.rows.map(mapDonationRow);
+      const donations = donationsResult.rows.map(mapDonationRow);
 
-    // Calculate totals
-    const totalDonatedXLM = donationsResult.rows
-      .reduce((sum, row) => sum + parseFloat(row.amount_xlm || "0"), 0)
-      .toFixed(7);
+      // Calculate totals
+      const totalDonatedXLM = donationsResult.rows
+        .reduce((sum, row) => sum + parseFloat(row.amount_xlm || "0"), 0)
+        .toFixed(7);
 
-    const projectRaisedXLM = parseFloat(project.raised_xlm || "0");
-    const projectCO2Kg = parseFloat(project.co2_offset_kg || "0");
-    const donorShare =
+      const projectRaisedXLM = parseFloat(project.raised_xlm || "0");
+      const projectCO2Kg = parseFloat(project.co2_offset_kg || "0");
+      const donorShare =
       projectRaisedXLM > 0 ? totalDonatedXLM / projectRaisedXLM : 0;
-    const co2OffsetKg = Math.round(donorShare * projectCO2Kg);
-    const treesEquivalent = Math.round(co2OffsetKg / 22);
+      const co2OffsetKg = Math.round(donorShare * projectCO2Kg);
+      const treesEquivalent = Math.round(co2OffsetKg / 22);
 
-    // Compute badge tier
-    const totalXLM = parseFloat(totalDonatedXLM);
-    let badgeTier = "bronze";
-    if (totalXLM >= 10000) badgeTier = "platinum";
-    else if (totalXLM >= 1000) badgeTier = "gold";
-    else if (totalXLM >= 100) badgeTier = "silver";
+      // Compute badge tier
+      const totalXLM = parseFloat(totalDonatedXLM);
+      let badgeTier = "bronze";
+      if (totalXLM >= 10000) badgeTier = "platinum";
+      else if (totalXLM >= 1000) badgeTier = "gold";
+      else if (totalXLM >= 100) badgeTier = "silver";
 
-    // Generate QR code for project wallet (null if no wallet address)
-    const qrCode = project.wallet_address
-      ? await QRCode.toDataURL(project.wallet_address, {
-        width: 256,
-        margin: 2,
-        color: { dark: "#227239", light: "#ffffff" },
-      })
-      : null;
+      // Generate QR code for project wallet (null if no wallet address)
+      const qrCode = project.wallet_address
+        ? await QRCode.toDataURL(project.wallet_address, {
+          width: 256,
+          margin: 2,
+          color: { dark: "#227239", light: "#ffffff" },
+        })
+        : null;
 
-    res.json({
-      success: true,
-      data: {
-        projectId: project.id,
-        projectName: project.name,
-        projectCategory: project.category,
-        projectVerified:
+      res.json({
+        success: true,
+        data: {
+          projectId: project.id,
+          projectName: project.name,
+          projectCategory: project.category,
+          projectVerified:
           Boolean(project.verified) || Boolean(project.on_chain_verified),
-        donorAddress,
-        donorName,
-        totalDonatedXLM,
-        co2OffsetKg,
-        treesEquivalent,
-        badgeTier,
-        donationCount: donations.length,
-        donations: donations.map((d) => ({
-          id: d.id,
-          amountXLM: d.amountXLM,
-          message: d.message,
-          transactionHash: d.transactionHash,
-          createdAt: d.createdAt,
-        })),
-        qrCode,
-        issuedAt: new Date().toISOString(),
-      },
-    });
-  } catch (e) {
-    next(e);
-  }
-});
+          donorAddress,
+          donorName,
+          totalDonatedXLM,
+          co2OffsetKg,
+          treesEquivalent,
+          badgeTier,
+          donationCount: donations.length,
+          donations: donations.map((d) => ({
+            id: d.id,
+            amountXLM: d.amountXLM,
+            message: d.message,
+            transactionHash: d.transactionHash,
+            createdAt: d.createdAt,
+          })),
+          qrCode,
+          issuedAt: new Date().toISOString(),
+        },
+      });
+    } catch (e) {
+      next(e);
+    }
+  });
 
 /**
  * GET /api/projects/:id/on-chain-donations
@@ -1574,8 +1553,8 @@ router.get("/:id/badge-holders", async (req, res, next) => {
       throw new AppError("PROJECT_NOT_FOUND");
     }
 
-    const result = await pool.query(
-      `SELECT
+      const result = await pool.query(
+        `SELECT
          d.donor_address,
          p.badges->0->>'tier' AS badge_tier,
          COALESCE(SUM(d.amount_xlm), 0)::numeric AS total_donated
@@ -1584,20 +1563,20 @@ router.get("/:id/badge-holders", async (req, res, next) => {
        WHERE d.project_id = $1 AND p.badges != '[]'::jsonb
        GROUP BY d.donor_address, p.badges
        ORDER BY total_donated DESC`,
-      [projectId],
-    );
+        [projectId],
+      );
 
-    const badgeHolders = result.rows.map((row) => ({
-      donorAddress: row.donor_address,
-      badgeTier: row.badge_tier || null,
-      totalDonated: Number.parseFloat(row.total_donated || "0").toFixed(7),
-    }));
+      const badgeHolders = result.rows.map((row) => ({
+        donorAddress: row.donor_address,
+        badgeTier: row.badge_tier || null,
+        totalDonated: Number.parseFloat(row.total_donated || "0").toFixed(7),
+      }));
 
-    res.json({ success: true, data: badgeHolders });
-  } catch (e) {
-    next(e);
-  }
-});
+      res.json({ success: true, data: badgeHolders });
+    } catch (e) {
+      next(e);
+    }
+  });
 
 module.exports = router;
 

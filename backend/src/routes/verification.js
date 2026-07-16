@@ -400,13 +400,13 @@ router.get("/me", async (req, res, next) => {
         WHERE wallet_address = $1
         ORDER BY submitted_at DESC
         LIMIT 50`,
-      [wallet],
-    );
-    res.json({ success: true, data: result.rows.map(mapRequestRow) });
-  } catch (e) {
-    next(e);
-  }
-});
+        [wallet],
+      );
+      res.json({ success: true, data: result.rows.map(mapRequestRow) });
+    } catch (e) {
+      next(e);
+    }
+  });
 
 /**
  * GET /api/verification-requests/:id
