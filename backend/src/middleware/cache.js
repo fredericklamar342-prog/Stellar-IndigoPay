@@ -32,7 +32,6 @@ function hashParams(params) {
 
 function cacheResponse(ttlSeconds, keyBuilder) {
   return async (req, res, next) => {
-    if (process.env.NODE_ENV === "test") return next();
     const cacheKey = keyBuilder(req);
     const routeLabel = req.route ? `${req.method} ${req.baseUrl || ""}${req.route.path || ""}` : "unknown";
 
