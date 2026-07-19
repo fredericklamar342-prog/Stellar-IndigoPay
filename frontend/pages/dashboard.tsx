@@ -10,6 +10,7 @@ import ProjectCard from "@/components/ProjectCard";
 import ImpactCertificate from "@/components/ImpactCertificate";
 import ProjectRating from "@/components/ProjectRating";
 import Tabs from "@/components/Tabs";
+import RecurringDonationsTab from "@/components/RecurringDonationsTab";
 import { fetchProfile, fetchDonorHistory, fetchProjects } from "@/lib/api";
 import { getDueMonthlySubscriptions } from "@/lib/monthlyGiving";
 import { getXLMBalance, getFriendBotFunding, NETWORK } from "@/lib/stellar";
@@ -653,6 +654,11 @@ export default function Dashboard() {
                     )}
                   </div>
                 ),
+              },
+              {
+                id: "recurring",
+                label: "Recurring Donations",
+                content: <RecurringDonationsTab publicKey={publicKey} />,
               },
             ]}
           />
