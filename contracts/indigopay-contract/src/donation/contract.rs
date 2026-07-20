@@ -81,11 +81,9 @@ impl DonationContract {
     pub fn scan_stealth_donations(
         env: Env,
         project_wallet: Address,
-        viewing_key: BytesN<32>,
+        _viewing_key: BytesN<32>,
     ) -> Vec<StealthDonation> {
         project_wallet.require_auth();
-
-        let _ = viewing_key;
 
         let donation_ids = get_project_donations(&env, &project_wallet);
         let mut donations = Vec::new(&env);
@@ -102,11 +100,7 @@ impl DonationContract {
 mod tests {
     use super::*;
 
-    use soroban_sdk::{
-        testutils::{Address as _, Ledger as _},
-        token::StellarAssetClient,
-        Address, Env, Vec,
-    };
+    use soroban_sdk::{testutils::Address as _, token::StellarAssetClient, Address, Env};
 
     #[contract]
     struct TestHarness;
