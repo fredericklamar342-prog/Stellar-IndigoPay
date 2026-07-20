@@ -20,15 +20,16 @@
 ///   FUZZ_ITERATIONS=1000 cargo test --features testutils -- fuzz
 #[cfg(all(test, feature = "testutils"))]
 mod fuzz {
-    extern crate std;
     extern crate alloc;
+    extern crate std;
 
     use crate::{
         BadgeTier, DataKey, GlobalStats, IndigoPayContract, IndigoPayContractClient, MockOracle,
         Project, VoteProposal,
     };
     use proptest::prelude::*;
-    use soroban_sdk::Vec;    use soroban_sdk::{
+    use soroban_sdk::Vec;
+    use soroban_sdk::{
         testutils::Address as _, testutils::Ledger, token::StellarAssetClient, Address, Env,
         String as SorobanString,
     };
