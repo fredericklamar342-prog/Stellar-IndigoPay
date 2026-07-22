@@ -24,6 +24,7 @@ const { enqueueProfileUpdate } = require("../services/profileQueue");
 const { enqueueImpactRecalc } = require("../services/impactQueue");
 const { enqueuePushNotification } = require("../services/pushQueue");
 const { server } = require("../services/stellar");
+const oracleService = require("../services/oracleService");
 const { invalidateProjectRelatedCache } = require("../services/cacheManager");
 const donationLimiter = createRateLimiter(10, 1); // 10 requests per minute
 
